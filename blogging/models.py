@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib import admin
 from django.contrib.auth.models import User
 
 
@@ -7,9 +6,7 @@ from django.contrib.auth.models import User
 class Category(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField(blank=True)
-
     # posts = models.ManyToManyField(Post, blank=True, related_name='categories')
-    # exclude = ('Posts',)
 
     def __str__(self):
         return self.name
@@ -29,14 +26,3 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class CategoryInline(admin.TabularInline):
-    model = Category
-
-
-class PostAdmin(admin.ModelAdmin):
-    inlines = [CategoryInline]
-
-# admin.site.register(Post, PostAdmin)
-# admin.site.register(Category)
