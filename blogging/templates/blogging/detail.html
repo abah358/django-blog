@@ -2,13 +2,13 @@
 {% block content %}
     <h1>{{ post }}</h1>
     <p class="byline">
-        Posted by {{ post.author.username }}
+        Posted by {{ object.author.username }}
     </p>
     <div class="post-body">
-        {{ post.text }}
+        {{ object.text }}
     </div>
     <ul class="categories">
-        {% for category in post.categories.all %}
+        {% for category in object.categories.all %}
             <li>{{ category }}</li>
         {% endfor %}
     </ul>
