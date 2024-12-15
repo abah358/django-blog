@@ -1,11 +1,45 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
         <title>
             Django Blog
         </title>
+        <link type="text/css" rel="stylesheet" href="{% static 'django_blog.css' %}">
     </head>
     <body>
+        <div id="header">
+            <ul id="control-bar">
+                {% if user.is_authenticated %}
+                    <li>Hello {{ user.username }}</li>
+                    {% if user.is_staff %}
+                        <li>
+                            <a href="{% url 'admin:index' %}">admin</a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <form id="frm_logout" method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <a href="javascript:$('#frm_logout').submit();">logout</a>
+                        </form>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'login' %}">login</a>
+                    </li>
+                {% endif %}
+
+                {% if not user.is_authenticated %}
+                <li>
+                    <a href="{% url 'account_signup' %}">Sign Up</a>
+                </li>
+                {% endif %}
+                <li>
+                    <a href="{% url 'account_reset_password' %}">Reset Password</a>
+                </li>
+             </ul>
+        </div>
+
         <div id="container">
             <div id="content">
                 {% block content %}
@@ -13,5 +47,6 @@
                 {% endblock %}
             </div>
         </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </body>
 </html>
